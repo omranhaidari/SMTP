@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GUI extends javax.swing.JFrame implements Observer, ActionListener {
 
@@ -21,6 +22,7 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
     private JButton buttonCancel;
 
     private Stack<Client> clients;
+    private List<String> unreachableRecipients;
 
     public GUI() {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -83,6 +85,7 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
 
         setContentPane(splitPane);
 
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(700, 400);
@@ -93,9 +96,29 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
 
     @Override
     public void update(Observable o, Object arg) {
-
+        Notification notification = (Notification) arg;
+        switch (notification.getType()) {
+            case CONNECTION_FAILED:
+                showWarningDialog("Impossible de se connecter au serveur.");
+                break;
+            case UNREACHBLE_RECIPIENT:
+                this.unreachableRecipients.add(notification.getArguments().toString());
+                break;
+            case ENDED:
+                if (!this.connectToNextClient()) {
+                    if (this.unreachableRecipients.isEmpty()) {
+                        this.showSuccessDialog("Le message a bien été délivré à tous les destinataires.");
+                    } else {
+                        displayUnreachableRecipients();
+                    }
+                }
+                break;
+        }
     }
 
+    private void displayUnreachableRecipients() {
+        this.showWarningDialog("Le message n'a pas pu être délivré à : " + this.unreachableRecipients.stream().collect(Collectors.joining(", ")));
+    }
 
     private void clearFields() {
         this.textFieldSubject.setText("");
@@ -108,6 +131,7 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonSendEmail) {
 
+            this.unreachableRecipients = new LinkedList<>();
             Message message = getMessageFromFields();
 
             this.clients = new Stack<>();
@@ -115,6 +139,11 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
                 if (!s.isEmpty()) {
                     message.addRecipient(s);
                 }
+            }
+
+            if (!message.hasSomeRecipients()) {
+                System.err.println("Veuillez spécifier le ou les destinataires du message.");
+                return;
             }
 
             for (String s : message.getAllDomains()) {
@@ -126,9 +155,15 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
                     client.setMessage(message);
                     client.setState(new ConnectionState(client));
                     this.clients.add(client);
+                } else {
+                    this.unreachableRecipients.addAll(message.getAllRecipientsOfADomain(s));
                 }
             }
 
+            if (this.unreachableRecipients.size() == message.getNumberOfRecipients()) {
+                this.displayUnreachableRecipients();
+                return;
+            }
 
             message.generateBody();
             this.connectToNextClient();
@@ -156,5 +191,13 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
 
     public List<String> getRecipients(String fromLine) {
         return Arrays.asList(fromLine.replace(" ", "").split(","));
+    }
+
+    public void showSuccessDialog(String message) {
+        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showWarningDialog(String message) {
+        JOptionPane.showMessageDialog(this, message, "Avertissement", JOptionPane.WARNING_MESSAGE);
     }
 }
