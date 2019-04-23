@@ -1,11 +1,16 @@
 package database;
 
+import core.Mailbox;
+import core.Utils;
+
 import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class User {
     private String address;
-    private File mailbox;
+    private Mailbox mailbox;
 
     public User(String raw) {
         this.address = raw.substring(1, raw.length() - 1);
@@ -13,19 +18,32 @@ public class User {
 
     public User(String raw, File mailbox) {
         this.address = raw.substring(1, raw.length() - 1);
-        this.mailbox = mailbox;
+        this.mailbox = new Mailbox(mailbox);
     }
 
     public String getAddress() {
         return address;
     }
 
-    public File getMailbox() {
+    public Mailbox getMailbox() {
         return mailbox;
     }
 
-    public boolean writeMail(List<String> mail) {
-        return false; // TODO Vérifie si la boîte mail n'est pas lock, la locke, puis écrit le mail, puis délocke
+    public boolean writeMail(Transaction transaction) {
+        if(!mailbox.isLocked()) { // Si la mailbox n'est pas lock
+            // Lock la mailbox
+            mailbox.lock();
+
+            // Ecrit le mail à la fin de la mailbox
+            // FIXME Ne pas oublier la syntaxe !!
+            mailbox.appendData(String.join("\r\n", transaction.getData()));
+
+            // Délocke la mailbox
+            mailbox.unlock(); // FIXME Si le fichier n'est pas correctement supprimé, que faire ?
+
+            return true;
+        }
+        return false;
     }
 
     @Override

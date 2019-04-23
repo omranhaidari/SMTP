@@ -2,6 +2,7 @@ package database;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Users {
@@ -17,6 +18,10 @@ public class Users {
 
     public User getUser(String address) {
         return users.get(address);
+    }
+
+    public List<User> getUsers() {
+        return (List<User>) this.users.values();
     }
 
     public boolean hasUser(String address) { // Les adresses mails ne sont pas sensibles à la casse

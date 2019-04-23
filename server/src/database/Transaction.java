@@ -47,7 +47,14 @@ public class Transaction {
         this.data.add(data);
     }
 
+    public List<String> getData() {
+        return this.data;
+    }
+
     public void finish() {
-        // TODO Ecrire les mails dans les boites mails
+        // Ecrit les mails dans les boites mails
+        for (User user : this.receptors.getUsers()) {
+            user.writeMail(this);
+        }
     }
 }
