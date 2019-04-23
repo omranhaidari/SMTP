@@ -1,3 +1,5 @@
+package client;
+
 public class Notification {
     private NotificationType type;
     private Object arguments;

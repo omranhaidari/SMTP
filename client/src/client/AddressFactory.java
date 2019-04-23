@@ -1,3 +1,5 @@
+package client;
+
 public class AddressFactory {
     public static String getAddress(String domain) {
         if (domain.equals("quatrea.uk")) {

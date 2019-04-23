@@ -1,7 +1,7 @@
-package states;
+package client.states;
 
-import Client;
-import Packet;
+import client.Client;
+import client.Packet;
 
 public class ConnectionState extends State {
     public ConnectionState(Client client) {

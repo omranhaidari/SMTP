@@ -1,3 +1,5 @@
+package client;
+
 import javax.net.ssl.SSLHandshakeException;
 import javax.swing.*;
 import java.io.BufferedReader;

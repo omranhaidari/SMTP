@@ -1,6 +1,6 @@
-package states;
+package client.states;
 
-import Client;
+import client.Client;
 
 public class WritingState extends State {
     public WritingState(Client client) {

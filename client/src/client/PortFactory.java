@@ -1,3 +1,5 @@
+package client;
+
 public class PortFactory {
     public static int getPort(String domain) {
         if (domain.equals("quatrea.uk")) {

@@ -1,5 +1,7 @@
-import states.State;
-import states.WritingState;
+package client;
+
+import client.states.State;
+import client.states.WritingState;
 
 import java.net.InetAddress;
 import java.net.Socket;

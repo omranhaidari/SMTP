@@ -1,3 +1,5 @@
+package client;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
