@@ -19,7 +19,7 @@ public abstract class State {
     public State accept(Packet packet) {
         String[] inputs = packet.getData().split(" ");
         Command command;
-        if ((command = commands.get(inputs[0])) != null) {
+        if ((command = commands.get(inputs[0].toUpperCase())) != null) {
             return command.execute(inputs);
         }
         if ((command = commands.get("*")) != null) {

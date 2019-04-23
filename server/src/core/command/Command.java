@@ -2,6 +2,7 @@ package core.command;
 
 import core.Connection;
 import core.state.State;
+import transport.Packet;
 
 public abstract class Command {
     protected State state;
@@ -13,4 +14,8 @@ public abstract class Command {
     }
 
     public abstract State execute(String[] args);
+
+    protected void send(Packet packet) {
+        connection.getSender().sendPacket(packet);
+    }
 }

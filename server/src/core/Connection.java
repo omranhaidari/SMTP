@@ -28,9 +28,9 @@ public class Connection implements Observer, Runnable {
         receiver.addObserver(this);
         sender.addObserver(this);
         this.users = new Users();
-        users.addUser(new User(String.format("<John@%s>", address)));
-        users.addUser(new User(String.format("<Jane@%s>", address)));
-        users.addUser(new User(String.format("<Doe@%s>", address)));
+        users.addUser(new User(String.format("<john@%s>", address))); // FIXME
+        users.addUser(new User(String.format("<jane@%s>", address)));
+        users.addUser(new User(String.format("<doe@%s>", address)));
     }
 
     public Sender getSender() {

@@ -17,10 +17,14 @@ public class Mail extends Command {
 
     @Override
     public State execute(String[] args) {
-        if (args.length == 2 && args[1].split(":")[0].equals("FROM")) {
-            transaction.setSender(new User(args[1].split(":")[1]));
-            connection.getSender().sendPacket(new Packet("250 OK"));
-            return new Receiving(connection, transaction);
+        if (args.length == 2) {
+            String param = args[1].split(":")[0].toUpperCase();
+            String senderMail = args[1].split(":")[1];
+            if(param.equals("FROM") && senderMail.startsWith("<") && senderMail.endsWith(">")) {
+                transaction.setSender(new User(senderMail));
+                connection.getSender().sendPacket(new Packet("250 OK"));
+                return new Receiving(connection, transaction);
+            }
         }
         connection.getSender().sendPacket(new Packet("550 Bad parameters"));
         return state;

@@ -18,7 +18,15 @@ public class Users {
         return users.get(address);
     }
 
-    public boolean hasUser(String address) {
-        return users.containsKey(address);
+    public boolean hasUser(String address) { // Les adresses mails ne sont pas sensibles à la casse
+        return users.containsKey(address.toLowerCase());
+    }
+
+    public static Users loadUsers(String directoryPath) {
+        Users users = new Users();
+
+
+
+        return users;
     }
 }
