@@ -51,10 +51,10 @@ public class Transaction {
         return this.data;
     }
 
-    public void finish() {
+    /*public void finish() {
         // Ecrit les mails dans les boites mails
         for (User user : this.receptors.getUsers()) {
             user.writeMail(this);
         }
-    }
+    }*/
 }

@@ -18,6 +18,17 @@ public class Body extends Command {
     public State execute(String[] args) {
         String line = args[0];
         if (line.equals(".")) {
+            connection.getSender().sendPacket(new Packet("250 OK"));
+            return new Waiting(connection, new Transaction(connection, transaction.getAddress()));
+        }
+        transaction.addData(line);
+        return state;
+    }
+
+    /*@Override
+    public State execute(String[] args) {
+        String line = args[0];
+        if (line.equals(".")) {
             transaction.finish();
             send(new Packet("250 OK"));
             return new Waiting(connection, new Transaction(connection, transaction.getAddress()));
@@ -37,5 +48,5 @@ public class Body extends Command {
 
         transaction.addData(line);
         return state;
-    }
+    }*/
 }

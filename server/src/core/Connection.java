@@ -18,11 +18,9 @@ public class Connection implements Observer, Runnable {
     private Sender sender;
     private Receiver receiver;
     private State state;
-    private Server server;
     private Users users;
 
-    public Connection(Server server, Socket socket, String address) {
-        this.server = server;
+    public Connection(Socket socket, String address) {
         this.address = address;
         this.sender = new Sender(socket);
         this.receiver = new Receiver(socket);
@@ -30,9 +28,9 @@ public class Connection implements Observer, Runnable {
         receiver.addObserver(this);
         sender.addObserver(this);
         this.users = new Users();
-        users.addUser(new User(String.format("<John@%s>", address)));
-        users.addUser(new User(String.format("<Jane@%s>", address)));
-        users.addUser(new User(String.format("<Doe@%s>", address)));
+        users.addUser(new User(String.format("<john@%s>", address)));
+        users.addUser(new User(String.format("<jane@%s>", address)));
+        users.addUser(new User(String.format("<doe@%s>", address)));
     }
 
     public Sender getSender() {
@@ -44,12 +42,13 @@ public class Connection implements Observer, Runnable {
     }
 
     public Users getUsers() {
-        return server.getUsers();
+        //return server.getUsers();
+        return users;
     }
 
-    public boolean doesUserExists(User user) {
+    /*public boolean doesUserExists(User user) {
         return server.getUsers().hasUser(user.getAddress());
-    }
+    }*/
 
     public synchronized void stop() {
         sender.toQuit();
@@ -84,4 +83,3 @@ public class Connection implements Observer, Runnable {
         }
     }
 }
-

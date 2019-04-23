@@ -1,8 +1,5 @@
 package core;
 
-import core.Utils.Utils;
-import database.Users;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -12,18 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server implements Runnable {
-
     private final int port;
     private final ServerSocket serverSocket;
     private final String address;
-    private final Users users;
 
     public Server(int port, String address) throws IOException {
         this.port = port;
         this.address = address;
         this.serverSocket = new ServerSocket(port);
-
-        this.users = Users.loadUsers(Utils.SERVERS_ROOT_PATH + address, address);
     }
 
     private String[] getAnonOnly(String[] suites) {
@@ -34,10 +27,6 @@ public class Server implements Runnable {
             }
         }
         return resultList.toArray(new String[resultList.size()]);
-    }
-
-    public Users getUsers() {
-        return users;
     }
 
     @Override
@@ -53,7 +42,7 @@ public class Server implements Runnable {
                 System.out.println("Initialization for a connection.");
                 Socket socket = serverSocket.accept();
                 System.out.println("Connection accepted.");
-                new Thread(new Connection(this, socket, address)).start();
+                new Thread(new Connection(socket, address)).start();
             } catch (IOException ex) {
                 //ex.printStackTrace();
             }

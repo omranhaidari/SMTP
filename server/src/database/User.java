@@ -1,28 +1,24 @@
 package database;
 
-import core.Utils.Mail;
+/*import core.Utils.Mail;
 import core.Utils.Mailbox;
 
-import java.io.File;
+import java.io.File;*/
 
 public class User {
     private String address;
-    private Mailbox mailbox;
+    //private Mailbox mailbox;
 
-    public User(String raw) {
-        this.address = raw.substring(1, raw.length() - 1);
-    }
+    public User(String raw) { this.address = raw.substring(1, raw.length() - 1); }
 
-    public User(String raw, File mailbox) {
+    /*public User(String raw, File mailbox) {
         this.address = raw.substring(1, raw.length() - 1);
         this.mailbox = new Mailbox(mailbox);
-    }
+    }*/
 
-    public String getAddress() {
-        return address;
-    }
+    public String getAddress() { return address; }
 
-    public Mailbox getMailbox() {
+    /*public Mailbox getMailbox() {
         return mailbox;
     }
 
@@ -42,7 +38,7 @@ public class User {
             return true;
         }
         return false;
-    }
+    }*/
 
     @Override
     public String toString() {

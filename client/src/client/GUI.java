@@ -56,7 +56,7 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
         JPanel panelHeaderCenter = new JPanel(new GridLayout(0,1));
         this.textFieldFrom = new JTextField("omran@gmail.com");
         panelHeaderCenter.add(this.textFieldFrom);
-        this.textFieldTo = new JTextField("Jane@polytech.com, John@polytech.com, Martin@polytech.com, Doe@informatique.fr, informatique@quatra.polytech");
+        this.textFieldTo = new JTextField("jane@polytech.com, john@polytech.uk, martin@polytech.com, doe@informatique.fr, informatique@quatrea.polytech");
         panelHeaderCenter.add(this.textFieldTo);
         this.textFieldSubject = new JTextField("Information importante");
         panelHeaderCenter.add(this.textFieldSubject);
