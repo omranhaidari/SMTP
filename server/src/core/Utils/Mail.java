@@ -19,10 +19,10 @@ public class Mail {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("\r\n");
-        builder.append("From: <" + from + ">\r\n");
-        builder.append("To: <" + to + ">\r\n");
-        builder.append("Subject: " + subject + "\r\n");
+        builder.append("\r" + "\n");
+        builder.append("From: <" + from + ">" + "\r" + "\n");
+        builder.append("To: <" + to + ">" + "\r" + "\n");
+        builder.append("Subject: " + subject + "\r" + "\n");
 
 
         return builder.toString();

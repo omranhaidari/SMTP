@@ -43,7 +43,7 @@ public class Server implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println(String.format("Server \"%s\" started.\nAddress: %s.\nListening on port %d.",
+            System.out.println(String.format("Server \"%s\" started." + "\r" + "\nAddress: %s." + "\r"+ "\nListening on port %d.",
                     address, InetAddress.getLocalHost(), port));
         } catch (UnknownHostException ex) {
             //ex.printStackTrace();

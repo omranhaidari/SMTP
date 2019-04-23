@@ -88,13 +88,13 @@ public class Message {
         StringBuilder sb = new StringBuilder();
         sb.append("FROM: <");
         sb.append(this.from);
-        sb.append(">\nTO: ");
+        sb.append(">\r" + "\nTO: ");
         sb.append(this.to.stream().map(msg -> "<" + msg + ">").collect(Collectors.joining(", ")));
-        sb.append("\nSUBJECT: ");
+        sb.append("\r" + "\nSUBJECT: ");
         sb.append(this.subject);
-        sb.append("\n\n");
+        sb.append("\r" + "\n\n");
         sb.append(this.body);
-        sb.append("\n.");
+        sb.append("\r" + "\n.");
 
         this.body = sb.toString();
     }

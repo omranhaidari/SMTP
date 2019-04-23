@@ -60,7 +60,7 @@ public class GUI extends javax.swing.JFrame implements Observer, ActionListener 
         panelHeaderCenter.add(this.textFieldTo);
         this.textFieldSubject = new JTextField("Information importante");
         panelHeaderCenter.add(this.textFieldSubject);
-        this.textAreaContent = new JTextArea("Bonjour !\n\nLa réunion aura lieu ce mercredi à 08h30. Merci de confirmer votre présence.\n\nCordialement, Omran.");
+        this.textAreaContent = new JTextArea("Bonjour !" + "\r" + "\n\nLa réunion aura lieu ce mercredi à 08h30. Merci de confirmer votre présence.\n\nCordialement, Omran.");
 
         JPanel panelHeaderLeft = new JPanel(new GridLayout(0,1));
         panelHeaderLeft.add(new JLabel("From : "));

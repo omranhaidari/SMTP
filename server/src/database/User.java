@@ -34,7 +34,7 @@ public class User {
             // Ecrit le mail à la fin de la mailbox
             // FIXME Ne pas oublier la syntaxe !!
             Mail mail = Mail.createFromTransaction(this, transaction);
-            mailbox.appendData(String.join("\r\n", transaction.getData()));
+            mailbox.appendData(String.join("\r" + "\n", transaction.getData()));
 
             // Délocke la mailbox
             mailbox.unlock(); // FIXME Si le fichier n'est pas correctement supprimé, que faire ?
