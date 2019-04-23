@@ -1,12 +1,9 @@
 package database;
 
-import core.Mailbox;
-import core.Utils;
+import core.Utils.Mail;
+import core.Utils.Mailbox;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class User {
     private String address;
@@ -36,6 +33,7 @@ public class User {
 
             // Ecrit le mail à la fin de la mailbox
             // FIXME Ne pas oublier la syntaxe !!
+            Mail mail = Mail.createFromTransaction(this, transaction);
             mailbox.appendData(String.join("\r\n", transaction.getData()));
 
             // Délocke la mailbox

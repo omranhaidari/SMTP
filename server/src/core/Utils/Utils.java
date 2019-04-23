@@ -1,4 +1,4 @@
-package core;
+package core.Utils;
 
 public class Utils {
     public static String SERVERS_ROOT_PATH = "servers/";
