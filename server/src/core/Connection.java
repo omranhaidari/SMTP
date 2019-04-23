@@ -19,6 +19,7 @@ public class Connection implements Observer, Runnable {
     private Receiver receiver;
     private State state;
     private Server server;
+    private Users users;
 
     public Connection(Server server, Socket socket, String address) {
         this.server = server;
@@ -28,6 +29,10 @@ public class Connection implements Observer, Runnable {
         this.state = new Initialization(this);
         receiver.addObserver(this);
         sender.addObserver(this);
+        this.users = new Users();
+        users.addUser(new User(String.format("<John@%s>", address)));
+        users.addUser(new User(String.format("<Jane@%s>", address)));
+        users.addUser(new User(String.format("<Doe@%s>", address)));
     }
 
     public Sender getSender() {
