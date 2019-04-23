@@ -18,19 +18,16 @@ public class Connection implements Observer, Runnable {
     private Sender sender;
     private Receiver receiver;
     private State state;
-    private Users users;
+    private Server server;
 
-    public Connection(Socket socket, String address) {
+    public Connection(Server server, Socket socket, String address) {
+        this.server = server;
         this.address = address;
         this.sender = new Sender(socket);
         this.receiver = new Receiver(socket);
         this.state = new Initialization(this);
         receiver.addObserver(this);
         sender.addObserver(this);
-        this.users = new Users();
-        users.addUser(new User(String.format("<john@%s>", address))); // FIXME
-        users.addUser(new User(String.format("<jane@%s>", address)));
-        users.addUser(new User(String.format("<doe@%s>", address)));
     }
 
     public Sender getSender() {
@@ -42,7 +39,11 @@ public class Connection implements Observer, Runnable {
     }
 
     public Users getUsers() {
-        return users;
+        return server.getUsers();
+    }
+
+    public boolean doesUserExists(User user) {
+        return server.getUsers().hasUser(user.getAddress());
     }
 
     public synchronized void stop() {

@@ -18,8 +18,13 @@ public class Body extends Command {
     public State execute(String[] args) {
         String line = args[0];
         if (line.equals(".")) {
+            transaction.finish();
             connection.getSender().sendPacket(new Packet("250 OK"));
             return new Waiting(connection, new Transaction(connection, transaction.getAddress()));
+        }
+        if(line.startsWith(".")) { // La ligne a djà été vérifiée, elle n'est pas égale à "."
+            // Alors il faut supprimer le 1er '.'
+//            line = line.substring(1); // TODO Vérifier que c'est bien implémenté sur le client
         }
         transaction.addData(line);
         return state;

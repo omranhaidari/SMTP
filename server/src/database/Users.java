@@ -1,5 +1,6 @@
 package database;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +23,18 @@ public class Users {
         return users.containsKey(address.toLowerCase());
     }
 
-    public static Users loadUsers(String directoryPath) {
+    public static Users loadUsers(String directoryPath, String serverDomain) {
         Users users = new Users();
 
-
+        File directory = new File(directoryPath);
+        File[] mailboxes = directory.listFiles();
+        if(mailboxes != null) {
+            for (File mailbox : mailboxes) {
+//                System.out.println(mailbox.getAbsolutePath());
+                String mailboxAddress = "<" + mailbox.getName() + "@" + serverDomain + ">";
+                users.addUser(new User(mailboxAddress, mailbox));
+            }
+        }
 
         return users;
     }
