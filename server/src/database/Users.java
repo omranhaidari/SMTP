@@ -1,6 +1,7 @@
 package database;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class Users {
     }
 
     public List<User> getUsers() {
-        return (List<User>) this.users.values();
+        return new ArrayList<>(this.users.values());
     }
 
     public boolean hasUser(String address) {
@@ -40,6 +41,8 @@ public class Users {
                 String mailboxAddress = "<" + mailbox.getName() + "@" + serverDomain + ">";
                 users.addUser(new User(mailboxAddress, mailbox));
             }
+        } else {
+            System.err.println("Aucune boite mail !");
         }
 
         return users;

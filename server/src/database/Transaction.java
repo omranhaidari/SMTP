@@ -53,7 +53,8 @@ public class Transaction {
 
     public void finish() {
         // Ecrit les mails dans les boites mails
-        for (User user : this.receptors.getUsers()) {
+        for (User receiptor : this.receptors.getUsers()) {
+            User user = connection.getUsers().getUser(receiptor.getAddress());
             user.writeMail(this);
         }
     }

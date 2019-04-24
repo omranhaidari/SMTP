@@ -15,6 +15,9 @@ public class Mailbox {
         File parentDirectory = mailboxFile.getParentFile();
         // Get parent/lock/mailboxName.lock
         File lockDirectory = new File(parentDirectory, Utils.LOCK_PATH);
+        if(!lockDirectory.exists()) {
+            lockDirectory.mkdir();
+        }
         this.lock = new File(lockDirectory, mailboxFile.getName());
     }
 
@@ -54,6 +57,8 @@ public class Mailbox {
             // FIXME Ajouter un <CRLF> au début ?
             FileWriter writer = new FileWriter(mailboxFile, true);
             writer.write(data);
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
