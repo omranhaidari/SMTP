@@ -23,7 +23,11 @@ public class Mail {
         builder.append("From: <" + from + ">" + "\r" + "\n");
         builder.append("To: <" + to + ">" + "\r" + "\n");
         builder.append("Subject: " + subject + "\r" + "\n");
+        builder.append("\r\n");
 
+        if(body != null) {
+            builder.append(body);
+        }
 
         return builder.toString();
     }
@@ -38,7 +42,7 @@ public class Mail {
         int bodyIndex = transaction.getData().indexOf("");
         for(int i = 0; i < bodyIndex; i++) {
             String[] header = transaction.getData().get(i).split(":");
-            if(header.length > 2) {
+            if(header.length >= 2) {
                 switch (header[0].toUpperCase()) {
                     case "SUBJECT":
                         mail.subject = header[1];
@@ -50,6 +54,13 @@ public class Mail {
                 }
             }
         }
+        StringBuilder builder = new StringBuilder();
+        for(int i = bodyIndex + 1; i < transaction.getData().size(); i++) {
+            builder.append(transaction.getData().get(i))
+                    .append("\r\n");
+        }
+        builder.append(".\r\n");
+        mail.body = builder.toString();
 
         return mail;
     }
