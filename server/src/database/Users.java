@@ -1,8 +1,8 @@
 package database;
 
-//import java.io.File;
+import java.io.File;
 import java.util.HashMap;
-//import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 public class Users {
@@ -20,18 +20,16 @@ public class Users {
         return users.get(address);
     }
 
-    /*public List<User> getUsers() {
+    public List<User> getUsers() {
         return (List<User>) this.users.values();
-    }*/
+    }
 
     public boolean hasUser(String address) {
         // Les adresses mails ne sont pas sensibles à la casse
-        //return users.containsKey(address.toLowerCase());
-
-        return users.containsKey(address);
+        return users.containsKey(address.toLowerCase());
     }
 
-    /*public static Users loadUsers(String directoryPath, String serverDomain) {
+    public static Users loadUsers(String directoryPath, String serverDomain) {
         Users users = new Users();
 
         File directory = new File(directoryPath);
@@ -45,5 +43,5 @@ public class Users {
         }
 
         return users;
-    }*/
+    }
 }

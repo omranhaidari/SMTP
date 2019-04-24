@@ -14,7 +14,7 @@ public class Body extends Command {
         this.transaction = transaction;
     }
 
-    @Override
+    /*@Override
     public State execute(String[] args) {
         String line = args[0];
         if (line.equals(".")) {
@@ -23,9 +23,9 @@ public class Body extends Command {
         }
         transaction.addData(line);
         return state;
-    }
+    }*/
 
-    /*@Override
+    @Override
     public State execute(String[] args) {
         String line = args[0];
         if (line.equals(".")) {
@@ -48,5 +48,5 @@ public class Body extends Command {
 
         transaction.addData(line);
         return state;
-    }*/
+    }
 }

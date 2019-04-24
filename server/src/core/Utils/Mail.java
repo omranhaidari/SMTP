@@ -28,7 +28,7 @@ public class Mail {
         return builder.toString();
     }
 
-    /*public static Mail createFromTransaction(User receiver, Transaction transaction) {
+    public static Mail createFromTransaction(User receiver, Transaction transaction) {
         Mail mail = new Mail();
 
         mail.from = transaction.getSender().getAddress();
@@ -52,5 +52,5 @@ public class Mail {
         }
 
         return mail;
-    }*/
+    }
 }
