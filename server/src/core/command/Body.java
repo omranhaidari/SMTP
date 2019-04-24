@@ -41,8 +41,8 @@ public class Body extends Command {
 
         // ============ Pour les tests =============
         if(line.toLowerCase().equals("/test")) {
-            // TODO On crée un mail bidon avec l'adresse de l'envoyeur = transaction.getSender
-            // TODO Puis on l'envoie au client (pour l'affichage en console)
+            //  On crée un mail bidon avec l'adresse de l'envoyeur = transaction.getSender
+            //  Puis on l'envoie au client (pour l'affichage en console)
         }
         // =========================================
 
